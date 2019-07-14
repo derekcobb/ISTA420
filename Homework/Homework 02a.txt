@@ -1,0 +1,48 @@
+## Name: TSQLFUN Homework Chapter 02a
+
+## Author: Derek Cobb
+
+## Date: July 01, 2019
+
+---------------------------------------------------------------------------------------------------
+
+Read Chapter 2 pgs 27-49 Homework
+1.	List the order of execution of a SQL query.
+(pg 28 para 3) The order of execution is FROM, WHERE, GROUP BY, HAVING, SELECT, AND ORDER BY
+
+2.	What does the from clause do?
+(pg29 para 5)The FROM clause specifies the names of the tables one wants to query and table operations that operate on those tables. Consider the FROM clause to be simply where you specify the name of the table you want to query.
+
+3.	What does the where clause do?
+(pg 31 para 1) The WHERE clause specifies a predicate/logical expression to filter the row returned by the FROM phase.
+
+4.	What does the group by clause do?
+(pg 32 para) The GROUP BY clause arranges the rows returned by the previous logical query processing phase in groups. The groups are determined by the elements you specify in the GROUP BY clause.
+
+5.	What does the having clause do?
+(pg 35 last para) The HAVING clause is a group filter that allows groups on the HAVING predicate that evaluate to TRUE are returned by the HAVING phase to the next logical query processing phase
+
+6.	What does the select clause do?
+(pg 36 para 2) The SELECT clause specifies the attributes (columns) you want to return in the result table of the query.
+
+7.	What does the distinct keyword do?
+(pg 34 para 2) The DISTINCT keyword handles only distinct occurrences of known value. The keyword is used before the input expression to the aggregate function.
+
+8.	What does the order by clause do?
+(pg 41 para 6) You use the ORDER BY clause to sort the rows in the output for presentation purposes.
+
+9.	What does the limit clause do? This is not in the book.
+(https://stackoverflow.com)The TOP and LIMIT keywords function identical and will return the same thing. Limits the number/percentage of rows your query returns.  One big mistake with LIMIT is how slow it runs. (Microsoft does not support. It is part of ANSI SQL)
+
+10.	What does the top clause do?
+(pg 44 para 1) The TOP filter is a proprietary T-SQL feature you can use to limit the number/percentage of rows your query returns.
+
+11.	What do the offset…fetch…clauses do?
+(pg 47 para 1) OFFSET-FETCH filter considered an extension to the ORDER BY clause. OFFSET clause – indicates how many rows to skip. FETCH Clause – indicates how many rows to filter after the skipped rows.
+
+Homework Exercises
+Review the documentation and tutorials on the following web sites.
+Microsoft documentation, https://docs.microsoft.com/en-us/sql/t-sql/queries/queries
+General SQL documentation, https://sqlite.org/syntaxdiagrams.html
+SQL tutorial, https://www.w3schools.com/sql/default.asp
+SQL tutorial, https://www.tutorialspoint.com/t_sql/index.htm

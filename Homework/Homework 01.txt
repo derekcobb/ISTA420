@@ -1,0 +1,104 @@
+## Name: TSQLFUN Homework Chapter 01
+
+## Author: Derek Cobb
+
+## Date: July 01, 2019
+
+Homework
+
+1.	How does the book describe the difference between imperative and declarative languages?
+
+(pg 2 4th para) 
+Declarative languages requires one to specify WHAT one wants to get while imperative languages require one to specify HOW to get it.
+
+2.	List three categories of command statements in SQL.
+(pg 2 last para) a.	Data Definition Language (DDL) b.	Data Manipulation Language (DML) c.	Data Control Language (DCL)
+
+3.	Give an informal definition of database as used in the expression “relational database management system.” Give an informal definition of database as used in the expression “Human Resources database.”
+(Self/class) “relational database management system”: something that acts on information from other sources (refers to software)
+“Human Resources database”: something that is acted upon (as a collection of data)
+
+4.	How does SQL implement three-valued predicate logic? (Important)
+(internet/class) SQL allows the use of a special maker for a missing value. Then the predicate comparing the attribute with a specific number will yield unknown for the case with the missing value. 
+Three-valued predicate logic refers to the three possible logical values that can result from a predicate—true, false, and unknown.
+
+5.	How does SQL enforce entity integrity? How does SQL enforce referential integrity? (Important)
+(pg 7 para 2-3) Candidate keys are used to enforce entity integrity. A candidate key is a key defined on one or more attributes that prevents more than one occurrence of the same tuple (row in SQL in a relation).
+Foreign keys are used to enforce referential integrity. A foreign key is defined on one or more attributes that prevents more than one occurrence of the same tuple.
+
+6.	What is a relation as defined in the text book? A one word answer to this question is sufficient.
+
+(pg 4 para 1) Table (relation of a set)
+
+7.	Is this table in first normal form? Why or why not? If it is not, how would you change it?
+
+create table faculty (
+	facID int primary key,
+	facName text,
+	facCreds text);
+facID	facName	facCreds
+1	|Alan Alda|	BA, MA
+2	|Bridgette Bardot|	BS, MS, PhD
+3	|Casey Cason	|AA, BBA, MBA, DEd
+
+(class) No, because in the “facCreds” the degrees are a divisible fields
+	FAC
+	
+ID	firstName	lastName
+		
+
+
+8.	Is this table in second normal form? Why or why not? If it is not, how would you change it?
+create table pets (
+	facID int primary key,
+	facName text,
+	facCreds text);
+ownerID	petID	ownerFirstName	ownerLastName	petName	petType
+1	|1	|Dom	|Delouise	|Rex	|German Shepherd
+1	|2	|Dom	|Delouise	|Lacy	|Border Collie
+2	|3	|Emilio	|Estevez	|Midnight	|Persian Cat
+
+No, the second normal form is violated because there are nonkey attributes that depend only on part of a candidate key.
+Owners	 	Pets
+
+PK	ownerID	 	PK	ownerID
+ 	ownerFirstName	 	PK	petID
+ 	ownerLastName	 	 	petName
+ 	 		 	petType
+
+
+9.	Is this table in third normal form? Why or why not? If it is not, how would you change it?
+create table friends (
+	friendID int primary key,
+	friendName text,
+	friendStreet text,
+	friendCity text,
+	friendState text
+	friendZip text );
+ID	FirstName	LastName	Street	City	State	Zip
+1	Fred	Flintstone	123 Rock Quarry Rd	Bedrock	GA	31905
+2	Greta	Garbo	456 Starlit Ave	Paris	FL	30019
+3	Harry	Houdini	789 Hidden Glen Lane	Alcatraz	CA	00000
+
+(pg 19 para 2)No, all nonkey attributes must be dependent on candidate keys nontransitively, or all nonkey attributes must be mutually independent. One nonkey attribute cannot be dependent on another nonkey attribute. 
+Customers	 	Address	 	State
+PK	ID	 
+PK	City	 
+PK	State
+ 	FirstName	 	 	Street	 	 	Zip
+ 	LastName	 	 	 	 	 	 
+
+
+10.	List the components of a four-part object name.
+
+(Pg 19 para 2)Table name, Schema name, database name and instance name
+
+11.	What is the difference between declarative data integrity and procedural data integrity?
+
+(pg 22 para 1) Declarative data integrity is enforced as part of the model, namely as part of the table definitions. Procedural data integrity is enforced with code—such as with stored procedures/triggers.
+
+Homework Exercises
+
+1.	Install SQL Server Express on a personal computer. See the appendix of the book, Getting Started, if you run into problems. Please, please check the system requirements before you do this. You cannot install SQL Server on a hand held device or an internet appliance. This may take a couple of hours but you can read the text book while you are waiting.
+2.	Install SQL Server Management Studio on a personal computer. See the cautions above. This may take a long time as well.
+3.	We will be downloading and installing the database the text uses. Read the Introduction. This can be obtained from http://aka.ms/T-SQLFund3e/downloads.

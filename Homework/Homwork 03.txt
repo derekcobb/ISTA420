@@ -1,0 +1,67 @@
+## Name: TSQLFUN Homework Chapter 03 
+
+## Author: Derek Cobb
+
+## Date: July 11, 2019
+
+--------------------------------------------------------------
+
+Chapter 3, Pages 103 { 123.
+Homework questions
+1. In general, why would you even want to join two (or more) tables together? This is a good time to
+think about the nature of relational algebra.
+
+(me) To process more information more efficiently. (www.techwalla.com) Joined tables execute faster, retrieval times are almost always faster than subqueries.
+
+2. Describe in your own words the output from an inner join.
+
+(pg 108) The output for an inner join goes one step further than a cross join by filtering rows based on a previously stated predicate
+
+3. Describe in your own words the output from an outer join.
+
+(pg 114) The output for an outer join uses the Cartesian Product and the ON filter from the inner joins and adds a third phase called Adding Outer Rows.
+
+4. Describe in your own words the output from an cross join.
+
+(pg 103) It produces a Cartesian product from two tables. If I have *m* rows in one table and *n* rows in the other table the result will be m*n rows.
+
+5. A convenient mnemonic for remembering the various joins is \Ohio." Why is this true?
+
+(pg ) O-Outer Join, H- , I-Inner Join, o-cross join
+
+6. Give an example of a composite join.
+
+(pg 110-111) A composite join is simply a join where you need to match multiple attributes from each side.
+Example:SELECT OD.orderid, OD.productid, OD.qty,
+			ODA.dt, ODA.loginname, ODA.oldval, ODA.newval
+		FROM Sales.OrderDetails AS OD
+			INNER JOIN Sales.OrderDetailsAudit AS ODA
+				ON OD.orderid = ODA.orderid
+				AND OD.prodcutid = ODA.prodcutid
+		WHERE ODA.columnname = N'qty';
+
+7. What is the difference between the following two queries? The business problem is \How many orders
+do we have from each customer?"
+================first query===============
+SELECT C.custid, COUNT(*) AS numorders
+FROM Sales.Customers AS C
+LEFT OUTER JOIN Sales.Orders AS O
+ON C.custid = O.custid
+GROUP BY C.custid;
+================second query===============
+SELECT C.custid, COUNT(O.orderid) AS numorders
+FROM Sales.Customers AS C
+LEFT OUTER JOIN Sales.Orders AS O
+ON C.custid = O.custid
+GROUP BY C.custid;
+
+ The COUNT(*) counts everything within the table while COUNT(O.orderid) counts just the data in O.orderid.
+ 
+8. What might be one reason the following query does not return the column custID in this query?
+SELECT C.custid, C.companyname, O.orderid, O.orderdate
+FROM Sales.Customers AS C
+LEFT OUTER JOIN Sales.Orders AS O
+ON C.custid = O.custid
+WHERE O.orderdate >= '20160101';
+
+(114) It could be because the custID is a left column and the LEFT OUTER JOIN preserves tables on the left.

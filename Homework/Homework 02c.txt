@@ -1,0 +1,11 @@
+-- Name: Homework Chapter 02c
+-- Author: Derek Cobb
+-- Date: July 9, 2018
+
+--1. A data type is an attribute that specifies the type of data of any object 
+
+--7. [pg 85/89] SELECT payment FROM employee.pay WHERE payment = EOMONTH(payment);
+
+--8. [pg 86] By using the DATEDIFF or the DATEDIFF_BIG functions we can make the query like this: SELECT DATEDIFF (day, 'current date', '16th birth date');
+
+--9. [pg 80] The following niladic (parameterless) functions return the current date and time: GETDATE, CURRENT_TIMESTAMP, GETUTCDATE, SYSDATETIME, SYSUTCDATETIME, SYSDATETIMEOFFSET.
