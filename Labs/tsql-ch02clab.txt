@@ -1,0 +1,57 @@
+.echo on
+.headers on
+
+--Name: Chapter 02c Lab
+
+--Author: Derek Cobb
+
+--Date: July 9, 2019
+
+-----------------------------------------------------------------------------
+--1. List the employee IDs with the number of sales by each employee from most sales to least. I want to
+recognize the employees with the most sales.
+select employeeid, count(orderid) as number_of_orders from orders group by employeeid order by number_of_orders desc;
+
+--2. I want to look at the average discounts taken by all customers for products that cost more than $50.00.
+Specifically, I want to know the average discount of all orders for each product from the highest price
+to the lowest price.
+select productid, unitprice, avg(discount) as average_discount from order_details where unitprice > 50 group by productid, unitprice order by unitprice desc;
+
+--3. I am doing an analysis of which shippers ship to each country, and I need a report showing the number
+of orders each shipper delivered to each country and the number of orders. I don't need the data where
+the number of orders is ten or less, but I need the report listed by country and the number of orders
+shipped to that country.
+select shipperid, shipcountry, count(orderid) as order_count from orders group by shipperid, shipcountry having count(orderid) > 10 order by shipcountry, order_count desc;
+
+--4. For each order, what was the time lag between the order date and the ship date?
+select shipperid, orderdate as ordered, shippeddate as shipped, julianday(shippeddate) - julianday(orderdate) as days_difference from orders limit 10;
+
+--5. Continuing with the previous query, I need the average time lag for each shipper.
+select shipperid, orderdate as ordered, shippeddate as shipped, avg(julianday(shippeddate) - julianday(orderdate)) as days_average from orders group by shipperid order by days_average;
+
+--6. I am doing inventory, and I need to know the total price of each product on hand, that is, the price of
+each product line, sorted alphabetically by product name.
+select productid, productname, sum(unitprice*unitsinstock) as total_per_product from products group by productid;
+
+--7. What is the dollar total we have tied up in inventory?
+select sum(unitprice * unitsinstock) from products;
+
+--8. We have discovered that some customers favor certain employees. I need to know this information. I
+need a report of the most common employee/customer pairs, the nuber of times the employee took
+orders from the customer, and the number of orders. Alphabetize this by customer id. Omit cus-
+tomer/employee pairs whre the number of orders is less than five.
+select employeeid, customerid, count(orderid) from orders group by employeeid, customerid having count(orderid) > 4 order by customerid;
+
+--9. How many days were in the service (if you are a veteran), or how many days will you serve (assuming
+you know your ETS date)?
+select julianday ('now') - julianday('2014-02-21');
+
+10. Answer these questions using the built in time and date function.
+> What is today's date?
+> What was the first day of the month?
+> What will be the first day of the next month?
+> What is the last day of this month?
+Select date ('now');
+select date ('now','start_of_month');
+select date ('now','start_of_month','+1_month');
+select date ('now','start_of_month','+1_month','-1_day');

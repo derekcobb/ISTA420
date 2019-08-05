@@ -1,0 +1,98 @@
+##Name: T-SQL Exercise 1
+
+Author: Derek Cobb
+
+Date: July 8, 2019
+
+C:\Users\verit>cd playpen7
+
+C:\Users\verit\playpen7>sqlite3 homelibrary.db
+SQLite version 3.29.0 2019-07-10 17:32:03
+Enter ".help" for usage hints.
+sqlite> create table homelibrary (
+   ...> ISBN integer,
+   ...> firstPub integer,
+   ...> numPages integer,
+   ...> author text,
+   ...> title text,
+   ...> );
+Error: near ")": syntax error
+sqlite> create table myHomeLibrary (ISBN int, firstPub int, numPages int, author string, title string);
+sqlite> .schema
+CREATE TABLE myHomeLibrary (ISBN int, firstPub int, numPages int, author string, title string);
+sqlite> insert into myHomeLibrary (9780758258861, 2011, 279, 'Cheryl Crane', 'The Bad Always die Twice')
+   ...> ;
+Error: near "9780758258861": syntax error
+sqlite> insert into myHomeLibrary (9780758258861, 2011, 279, 'Cheryl Crane', 'The Bad Always die Twice');
+Error: near "9780758258861": syntax error
+sqlite> insert into MyHomeLibrary (9780758258861, 2011, 279, 'Cheryl Crane', 'The Bad Always die Twice');
+Error: near "9780758258861": syntax error
+sqlite> insert into MyHomeLibrary (58258861, 2011, 279, 'Cheryl Crane', 'The Bad Always die Twice');
+Error: near "58258861": syntax error
+sqlite> insert into MyHomeLibrary values (9780758258861, 2011, 279, 'Cheryl Crane', 'The Bad Always die Twice');
+sqlite> insert into MyHomeLibrary values (9781250020611, 2014, 386, 'Charles Cumming', 'A Colder War');
+sqlite> insert into MyHomeLibrary values (9780399156434, 2010, 436, 'Clive Cussler', 'The Spy');
+sqlite> insert into MyHomeLibrary values (99780871406613, 2016, 190, 'Michael Patrick', 'The Internet of Us');
+sqlite> insert into MyHomeLibrary values (9781476767727, 2016, 270, 'Justin Peters', 'The Idealist');
+sqlite> insert into MyHomeLibrary values (9781615470105, 2012, 176, 'Bob Umlas', 'Excel Outside the Box');
+sqlite> insert into MyHomeLibrary values (9781577311683, 2000, 95, 'Alan Watts', 'What is Tao?');
+sqlite> insert into MyHomeLibrary values (9781501188374, 2019, 211, 'Ken Honda', 'happy money');
+sqlite> insert into MyHomeLibrary values (9780143109877, 2017, 339, 'Maria Konnikova', 'The Confidence Game');
+sqlite> insert into MyHomeLibrary values (9780393352795, 2016, 415, 'Richard H. Thaler', 'Misbehaving');
+sqlite> select * from myHomeLibrary;
+9780758258861|2011|279|Cheryl Crane|The Bad Always die Twice
+9781250020611|2014|386|Charles Cumming|A Colder War
+9780399156434|2010|436|Clive Cussler|The Spy
+99780871406613|2016|190|Michael Patrick|The Internet of Us
+9781476767727|2016|270|Justin Peters|The Idealist
+9781615470105|2012|176|Bob Umlas|Excel Outside the Box
+9781577311683|2000|95|Alan Watts|What is Tao?
+9781501188374|2019|211|Ken Honda|happy money
+9780143109877|2017|339|Maria Konnikova|The Confidence Game
+9780393352795|2016|415|Richard H. Thaler|Misbehaving
+sqlite> .headers on
+sqlite> select ISBN from myHomeLibrary;
+ISBN
+9780758258861
+9781250020611
+9780399156434
+99780871406613
+9781476767727
+9781615470105
+9781577311683
+9781501188374
+9780143109877
+9780393352795
+sqlite> select * from myHomeLibrary
+   ...> ;
+ISBN|firstPub|numPages|author|title
+9780758258861|2011|279|Cheryl Crane|The Bad Always die Twice
+9781250020611|2014|386|Charles Cumming|A Colder War
+9780399156434|2010|436|Clive Cussler|The Spy
+99780871406613|2016|190|Michael Patrick|The Internet of Us
+9781476767727|2016|270|Justin Peters|The Idealist
+9781615470105|2012|176|Bob Umlas|Excel Outside the Box
+9781577311683|2000|95|Alan Watts|What is Tao?
+9781501188374|2019|211|Ken Honda|happy money
+9780143109877|2017|339|Maria Konnikova|The Confidence Game
+9780393352795|2016|415|Richard H. Thaler|Misbehaving
+sqlite> select numPages from myHomeLibrary > 300;
+Error: near ">": syntax error
+sqlite> select numPages from myHomeLibrary where numPages > 300;
+numPages
+386
+436
+339
+415
+sqlite> select numPages from myHomeLibrary where numPages > 300 order by firstPub;
+numPages
+436
+386
+415
+339
+sqlite> select author, numPages from myHomeLibrary where numPages > 300 order by author;
+author|numPages
+Charles Cumming|386
+Clive Cussler|436
+Maria Konnikova|339
+Richard H. Thaler|415

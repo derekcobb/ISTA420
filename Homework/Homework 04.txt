@@ -1,0 +1,81 @@
+## Name: TSQLFUN Homework Chapter 04
+
+## Author: Derek Cobb
+
+## Date: July 16, 2019
+
+---------------------------------------------------------------------------------------------------
+
+Read pages, Chapter 4, 133 { 149 in the T-SQL Fundamentals book.
+Homework questions
+--1. In your own words, what is a subquery?
+(pg 133) A subquery is an inner expression whose value is used by an outer expression. (Class) A subquery is a nested query
+
+--2. In your own words, what is a self contained subquery?
+(pg 133) Self-contained subqueries are queries that are independent of the tables in the outer query. Queries that do not care what happens on the outside.
+
+--3. In your own words, what is a correlated subquery?
+(pg 133/139) A correlated subquery has dependency on tables from the outer query and cannot be invoked
+independently. (It needs a piece of data from outside its table)
+
+--4. Give an example of a subquery that returns a single value. When would you use this kind of subquery?
+(pg 134) 
+
+(or)SELECT orderid
+FROM Sales.Orders
+WHERE empid =
+(SELECT E.empid
+FROM HR.Employees AS E
+WHERE E.lastname LIKE N'C%');
+
+This query could be used to find a particular employee use name one is not completely sure about.
+
+--5. Give an example of a subquery that returns multiple values. When would you use this kind of subquery?
+(pg 136) 
+SELECT orderid
+FROM Sales.Orders
+WHERE empid IN
+(SELECT E.empid
+FROM HR.Employees AS E
+WHERE E.lastname LIKE N'D%');
+
+This query could be used when you need information about a group of certian products.
+
+--6. Give an example of a subquery that returns table values. When would you use this kind of subquery?
+(pg 137 / (More simple answer Chapter 5 pg ) table expression is a named query expression that represents a valid relational table. You can use
+table expressions in data-manipulation statements much like you use other tables. T-SQL supports
+four types of table expressions: derived tables, common table expressions (CTEs), views, and inline
+table-valued functions (inline TVFs). The focus of this chapter is on using SELECT queries against table
+expressions; Chapter 8, “Data modification,” covers modifications against table expressions.
+
+--7. What does the exists predicate do? Give an example.
+(pg 141) The EXISTS predicate accepts a subquery as input and returns TRUE if the
+subquery returns any rows and FALSE otherwise.
+
+SELECT custid, companyname
+FROM Sales.Customers AS C
+WHERE country = N'Spain'
+AND EXISTS
+(SELECT * FROM Sales.Orders AS O
+WHERE O.custid = C.custid);
+
+--8. What happens if we use the not operator before a predicate? Give an example.
+(pg 142) Using the NOT operator before a predicate negates it.
+SELECT custid, companyname
+FROM Sales.Customers AS C
+WHERE country = N'Spain'
+AND NOT EXISTS
+(SELECT * FROM Sales.Orders AS O
+WHERE O.custid = C.custid);
+
+--9. When you use exists or not exists with respect to a row in a database, does it return two or three
+values? Explain your answer.
+(pg 142) EXISTS predicate lends itself to good optimization. That is, the
+database engine knows that it’s enough to determine whether the subquery returns at least one row
+or none, and it doesn’t need to process all qualifying rows. You can think of this capability as a kind of
+short-circuit evaluation. (Class) It still returns two values. Data either exists inside the table or it doesn't.
+
+--10. How would you a subquery to calculate aggregates? For example, you want to calculate yearly sales
+of a product, and you also want to keep a running sum of total sales. Explain how you would use a
+subquery to do this.
+(Did not cover this part)

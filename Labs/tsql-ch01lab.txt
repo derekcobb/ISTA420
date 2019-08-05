@@ -1,0 +1,83 @@
+--Name: Sampletable
+
+--Author: Derek Cobb
+
+--Date: July 1, 2019
+
+C:\Users\verit\playpen7>sqlite3 sample.db
+SQLite version 3.29.0 2019-07-10 17:32:03
+Enter ".help" for usage hints.
+sqlite> create table sample table (ID int, name text, sex integer, role text, age integer);
+Error: near "table": syntax error
+sqlite> create table sampletable (ID int, name text, sex integer, role text, age integer);
+sqlite> .echo on
+sqlite> .headers on
+.headers on
+sqlite> .schema
+.schema
+CREATE TABLE sampletable (ID int, name text, sex integer, role text, age integer);
+sqlite> insert into sampletable values (1, 'Charles',1,'parent',68);
+insert into sampletable values (1, 'Charles',1,'parent',68);
+sqlite> insert into sampletable values (2, 'Bonnie',0,'parent',49);
+insert into sampletable values (2, 'Bonnie',0,'parent',49);
+sqlite> insert into sampletable values (3, 'Casie',0,'child',38);
+insert into sampletable values (3, 'Casie',0,'child',38);
+sqlite> insert into sampletable values (4, 'Jackson',1,'child',30);
+insert into sampletable values (4, 'Jackson',1,'child',30);
+sqlite> insert into sampletable values (5, 'Midnight',0,'pet',3);
+insert into sampletable values (5, 'Midnight',0,'pet',3);
+sqlite> insert into sampletable values (6, 'Max',1,'pet',8);
+insert into sampletable values (6, 'Max',1,'pet',8);
+sqlite> .schema
+.schema
+CREATE TABLE sampletable (ID int, name text, sex integer, role text, age integer);
+sqlite> select * from family;
+Error: no such table: family
+sqlite> select * from sampletable;
+select * from sampletable;
+ID|name|sex|role|age
+1|Charles|1|parent|68
+2|Bonnie|0|parent|49
+3|Casie|0|child|38
+4|Jackson|1|child|30
+5|Midnight|0|pet|3
+6|Max|1|pet|8
+sqlite> select * from sampletable where sex = 1;
+select * from sampletable where sex = 1;
+ID|name|sex|role|age
+1|Charles|1|parent|68
+4|Jackson|1|child|30
+6|Max|1|pet|8
+sqlite> select * from sampletable where role like 'parent';
+select * from sampletable where role like 'parent';
+ID|name|sex|role|age
+1|Charles|1|parent|68
+2|Bonnie|0|parent|49
+sqlite> select * from family where role like 'pet';
+Error: no such table: family
+sqlite> select * from sampletable where role like 'pet';
+select * from sampletable where role like 'pet';
+ID|name|sex|role|age
+5|Midnight|0|pet|3
+6|Max|1|pet|8
+sqlite> select name from family;
+Error: no such table: family
+sqlite> select name from sampletable;
+select name from sampletable;
+name
+Charles
+Bonnie
+Casie
+Jackson
+Midnight
+Max
+sqlite> select avg(age) from sampletable;
+select avg(age) from sampletable;
+avg(age)
+32.6666666666667
+sqlite> select sum(age) from family;
+Error: no such table: family
+sqlite> select sum(age) from sampletable;
+select sum(age) from sampletable;
+sum(age)
+196

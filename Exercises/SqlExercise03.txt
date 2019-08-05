@@ -1,0 +1,25 @@
+.echo on
+.headers on
+
+##Name: SQL Exercise 03
+##Author: Derek Cobb
+##Date: July 15, 2019
+
+--1. 
+select od.orderid, od.productid, od.unitprice, od.quantity, (select od1.unitprice * od1.quantity from order_details od1 where od.productid = od1.productid ) as LineTotal, (select od2.unitprice * od2.quantity from order_details od2 where od2.productid = od.productid) / (select sum(od3.unitprice * od3.quantity)
+ from order_details od3 where od3.orderid = od.orderid group by (od3.orderid )) * 100 as PctOfTotalOrder from order_details od limit 25;
+
+--2. 
+(a) select c.city, c.region, c.postalcode, c.customerid, c.companyname, e.employeeid, e.lastname, e.firstname from customers c join employees e on c.city = e.city group by c.city;
+(b) select distinct e.city, e.region, e.postalcode, c.city, c.region, c.postalcode from employees e left join customers c where e.city = c.city;
+(c) select distinct c.city, c.region, c.postalcode, e.city, e.region, e.postalcode from customers c left join employees e on c.city = e.city;
+
+--3. 
+select p.productid, p.productname, (select max(p1.Unitprice) from products p1 where p1.productid = p.productid) as UnitPrice from products p order by p.unitprice desc limit 10;
+
+--4.select  o.employeeid, e.firstname, e.lastname, o.orderdate
+from orders o
+inner join employees e on o.employeeid = e.employeeid
+ where o.orderdate =
+(select max(oo.orderdate) from orders oo where o.employeeid = oo.employeeid)
+order by o.employeeid;

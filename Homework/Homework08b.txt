@@ -1,0 +1,99 @@
+--Name: SQL Homework Ch08b
+
+--Author: Derek Cobb
+
+--Date: August 5, 2019
+
+-------------------------------------------------------------
+Read chapter 8, pages 266 - 287 in the T-SQL Fundamentals book.
+Homework questions
+--1. The sales tax rate for a state just changed. How would you update the state sales tax table to reflect
+the changes? Assume that this table has an ID column, an RATE column, and a STATE column.
+(pg 267)
+UPDATE [Table_Name]
+SET rate = new_rate
+WHERE ID = State_ID;
+
+--2. The Revenue Division has requested that you provide a report on what the actual sales taxes would
+have been for all orders in the past year, assuming the retroactivity of the new sales tax rate. How
+would you calculate this?
+(relook at)
+UDPATE [Table_Name]
+SET last_year_rate = current_taxrate - taxrate_change;
+
+--3. Explain how the proprietary assignment update command works.
+(pg 270)
+proprietary UPDATE syntax that both updates data in a table and assigns values
+to variables at the same time. This syntax saves you the need to use separate UPDATE and SELECT
+statements to achieve the same task.
+To
+achieve this, you keep the last-used value in a table, and whenever you need a new value, you use the
+special UPDATE syntax to both increment the value in the table and assign it to a variable.
+
+--4. What is one very important purpose of the MERGE SQL statement? What is ETL (not in book)?
+(pg 271) 
+MERGE you can use to merge data from a source into a target,
+applying different actions (INSERT, UPDATE, and DELETE) based on conditional logic.
+
+--5. What are the semantics of MERGE?
+()
+1. you specify the target table and the source table in the MERGE clause
+2. the merge_condition determines how the rows from the source table are matched to the rows from the target table. 
+It is similar to the join condition in the join clause. Typically, you use the key columns either primary key or unique key for matching.
+3. the merge_condition determines how the rows from the source table are matched to the rows from the target table. 
+It is similar to the join condition in the join clause. Typically, you use the key columns either primary key or unique key for matching.
+
+--6. Write a typical INSERT OUTPUT statement.
+(pg 281)
+INSERT INTO dbo.T1(datacol)
+OUTPUT inserted.keycol, inserted.datacol
+SELECT lastname
+FROM HR.Employees
+WHERE country = N'USA';
+
+--7. Write a typical UPDATE OUTPUT statement.
+(pg 284)
+UPDATE dbo.OrderDetails
+SET discount += 0.05
+OUTPUT
+inserted.orderid,
+inserted.productid,
+deleted.discount AS olddiscount,
+inserted.discount AS newdiscount
+WHERE productid = 51;
+
+--8. Write a typical DELETE OUTPUT statement.
+(pg 282)
+DELETE FROM dbo.Orders
+OUTPUT
+deleted.orderid,
+deleted.orderdate,
+deleted.empid,
+deleted.custid
+WHERE orderdate < '20160101';
+
+--9. Write a typical MERGE OUTPUT statement.
+(pg 284-285)
+MERGE INTO dbo.Customers AS TGT
+USING dbo.CustomersStage AS SRC
+ON TGT.custid = SRC.custid
+WHEN MATCHED THEN
+UPDATE SET
+TGT.companyname = SRC.companyname,
+TGT.phone = SRC.phone,
+TGT.address = SRC.address
+WHEN NOT MATCHED THEN
+INSERT (custid, companyname, phone, address)
+VALUES (SRC.custid, SRC.companyname, SRC.phone, SRC.address)
+OUTPUT $action AS theaction, inserted.custid,
+deleted.companyname AS oldcompanyname,
+inserted.companyname AS newcompanyname,
+deleted.phone AS oldphone,
+inserted.phone AS newphone,
+deleted.address AS oldaddress,
+inserted.address AS newaddress;
+
+--10. What is nested DML?
+(pg 285)
+A feature that you can use to directly insert into the final target table only the subset of rows you need
+from the full set of modified rows.

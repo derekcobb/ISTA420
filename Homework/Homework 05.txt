@@ -1,0 +1,84 @@
+--Name: T-SQL Chapter 5 Hmwk
+
+--Author: Derek Cobb
+
+--Date: July 21, 2019
+
+Read chapter 5, pages 161 - 183 in the T-SQL Fundamentals book.
+
+Discussion questions
+
+--1. What is a table expression? Can you give a technical definition of a table expression?
+
+(pg 161) A table expression is a named query expression that represents a valid relational table.
+
+--2. In what SQL clause are derived tables (table valued subqueries) located?
+(pg 161) Derived tables (also known as table subqueries) are defined in the FROM clause of an outer query.
+
+--3. Why can you refer to column aliases in an outer query that you defined in an inner table valued
+subquery?
+
+(pg 163)  The program only sees the aliases names. It does not care whether it is in an outer query or an inner query.
+
+--4. What SQL key word defines a common table expression?
+
+(pg 167) CTEs are defined by using a WITH statement and have the following general form:
+WITH <CTE_Name>[(<target_column_list>)]
+AS
+(
+<inner_query_defining_CTE>
+)
+<outer_query_against_CTE>;
+
+--5. When using common table expressions, can a subsequent derived table use a table alias declared in a
+preceding table expression?
+
+(Me) No
+
+--6. Can a main query refer to a previously defined common table expression by multiple aliases?
+(pg 169) As you can see, the CTE YearlyCount is defined only once and accessed twice in the FROM clause of
+the outer query—once as Cur and once as Prv. You need to maintain only one copy of the inner query
+(the code inside the CTE). The solution is clearer and less prone to errors.
+
+--7. In SQL, is a view a durable object?
+(pg 171) Views and inline table-valued functions (inline TVFs) are two types of table expressions whose definitions are
+stored as permanent objects in the database, making them reusable.
+
+--8. In a view, what does WITH CHECK OPTION do? Why is this important?
+(pg 177) The purpose of the WITH CHECK OPTION is to prevent modifications through the view that conflict with the
+view’s filter.
+
+--9. In a view, what does SCHEMABINDING do? Why is this important?
+(pg 176) The SCHEMABINDING option is available to views and UDFs; it binds the schema of referenced objects
+and columns to the schema of the referencing object. It indicates that referenced objects cannot be
+dropped and that referenced columns cannot be dropped or altered.
+
+--10. What is a table valued function?
+(pg 178) Inline TVFs are reusable table expressions that support input parameters. In most respects, except for
+the support for input parameters, inline TVFs are similar to views. For this reason, I like to think of inline
+TVFs as parameterized views, even though they are not formally referred to this way
+
+--11. What does the APPLY operator do?
+(pg 180) The APPLY operator operates on two input tables; I’ll refer to them as the “left” and “right” tables.
+The right table is typically a derived table or a TVF. The CROSS APPLY operator implements one logical-
+query processing phase—it applies the right table to each row from the left table and produces a result
+table with the unified result sets.
+
+--12. What are the two forms of the APPLY operator? Give an example of each.
+(pg 180) There are two supported types of APPLY: CROSS APPLY and OUTER APPLY. Like the
+JOIN table operator, APPLY performs its work in logical-query phases. CROSS APPLY implements only
+one logical-query processing phase, whereas OUTER APPLY implements two.
+
+CROSS APPLY
+SELECT S.shipperid, E.empid
+FROM Sales.Shippers AS S
+CROSS APPLY HR.Employees AS E;
+
+OUTER APPLY
+SELECT C.custid, A.orderid, A.orderdate
+FROM Sales.Customers AS C
+OUTER APPLY
+(SELECT TOP (3) orderid, empid, orderdate, requireddate
+FROM Sales.Orders AS O
+WHERE O.custid = C.custid
+ORDER BY orderdate DESC, orderid DESC) AS A;

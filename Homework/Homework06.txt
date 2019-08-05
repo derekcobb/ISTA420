@@ -1,0 +1,57 @@
+##Name: TSQL Homework Ch 6
+
+##Author: Derek Cobb
+
+##Date: July 25, 2019
+
+------------------------------------------------------------------------------------
+
+Read chapter 6, pages 193 - 204 in the T-SQL Fundamentals book.
+Homework questions
+
+--1. What does a set operator do?
+(pg 193) Set operators are operators that combine rows from two query result sets (or multisets). Some of
+the operators remove duplicates from the result, and hence return a set, whereas others don’t, and
+hence return a multiset.
+
+--2. What are the general requirements of a set operator?
+(pg 193)
+Input Query1
+<set_operator>
+Input Query2
+[ORDER BY ...];
+
+--3. What is a Venn Diagram? This is not in the book.
+(https://en.wikipedia.org/wiki/Venn_diagram)A Venn diagram is a diagram that shows all possible logical relations between a finite collection of different sets. 
+These diagrams depict elements as points in the plane, and sets as regions inside closed curves. 
+A Venn diagram consists of multiple overlapping closed curves, usually circles, each representing a set.
+
+--4. Draw a Venn Diagram of the UNION operator. What does it do?
+(pg 194) The UNION operator unifies the results of two input queries. If a row appears in any of the input sets,
+it will appear in the result of the UNION operator.
+
+--5. Draw a Venn Diagram of the UNION ALL operator. What does it do?
+(pg 194) The UNION ALL operator unifies the two input query results without attempting to remove duplicates
+from the result.
+
+--6. Draw a Venn Diagram of the INTERSECT operator. What does it do?
+(pg 196) The INTERSECT operator returns only the rows that are common to the results of the two input queries.
+
+--7. If SQL Server supported the INTERSECT ALL operator, what would it do?
+(pg 197) Similarly, the keyword ALL in the INTERSECT ALL operator means that duplicate intersections
+will not be removed. INTERSECT ALL returns the number of duplicate rows matching the lower of the
+counts in both input multisets
+
+--8. Draw a Venn Diagram of the EXCEPT operator. What does it do?
+(pg 199) The EXCEPT operator implements set differences. It operates on the results of two input queries and
+returns rows that appear in the first input but not the second.
+
+--9. If SQL Server supported the EXCEPT ALL operator, what would it do?
+(pg 200) The EXCEPT operator implements set differences. It operates on the results of two input queries and
+returns rows that appear in the first input but not the second.
+
+--10. What is the precedence of the set operators?
+(pg 201) The INTERSECT operator precedes UNION and EXCEPT,
+and UNION and EXCEPT are evaluated in order of appearance. Using the ALL variant doesn’t change the
+precedence. In a query that contains multiple set operators, first INTERSECT operators are evaluated, and
+then operators with the same precedence are evaluated based on their order of appearance

@@ -1,0 +1,64 @@
+## Name: TSQLFUN Homework Chapter 02b
+
+## Author: Derek Cobb
+
+## Date: July 03, 2019
+
+---------------------------------------------------------------------------------------------------
+
+Read chapter 2 of the textbook T-SQL Fundamentals, pages 49 through 73.
+
+1. What is a data type? Why do we have data types?
+(pg ) A data type is an attribute that specifies the type of data of any object.
+Data types help manage storage space. Let's the computer know what commands are used for data type since all the computer sees is binary code.
+
+2. What is a collation? Name four elements of a collation.
+(pg 61) A collation is a property at the database level that will determine default language support, case sensitivity, and sort order for character data in that database.
+The four elements include: language support, sort order, case sensitivity, and accent sensitivity
+
+3. How would you strip whitespace from a string? For example, suppose you had \ Dave " but
+wanted only \Dave".
+(pg 69) To remove the spaces one uses the RTRIM and LTRIM fucntions, which return the input string w/ leading/trailing spaces removed.
+Type: SELECT RTRIM(LTRIM ('    abc    '));
+
+4. Suppose you wanted to make a list of every college and university that was called an Institute from
+the college table. Write the query.
+(pg 72) SELECT name FROM COLLEGES WHERE name LIKE N'[Institute%]';
+
+5. How would you find out the index of the first space in a string? For example, the index of the first
+space in \Barack Hussein Obama" would be 7.
+
+(pg 66) By using the CHAR INDEX function. Ex: SELECT CHARINDEX('', 'Barack Hussein Obama');
+
+6. How would you select just the first name in a list of the presidents. Each record looks like the: "George
+Washington", "John Adams". First names can be an arbitrary length, from \Cal" to \Benjamin." (e.g.,
+Cal College, Benjamin Harrison)
+
+(class) SELECT substr('George Washington', 1,7);
+
+7. What is the order of precedence for the logical operators?
+
+(pg 51 and class) The order of precedence for logical operators is NOT, AND, and BETWEEN,IN,LIKE,OR.
+
+8. What is the order of precedence for the math operators?
+
+(pg 51 and class) The order of precedence for math operators is (* multiplication, / division, % modulo), (+ positive/addition,concatenation - negative/subtraction)
+
+9. What is the difference between a simple and a searched CASE expression?;
+
+(pg 52-53) You use the *simple* form to compare one value or scalar expression with a list of possible values and return a value for the first match.
+The *searched* *CASE* form is more flexible in the sense you can specify predicates in the WHEN clauses rather than being restricted to using equality comparisons
+
+10. How would you turn a list of names like this: \LASTNAME, FIRSTNAME", to a list like this:
+\FIRSTNAME LASTNAME"?
+
+(class)Select Substring ('Sean Zitzer' instr('Sean Zitzer', ' ') +1 || ',' || substr ('Sean Zitzer', 1, instr ('Sean Zitzer', ' '));
+
+11. How would you turn a list of names like this: \FIRSTNAME LASTNAME", to a list like this: \LAST-
+NAME, FIRSTNAME"?
+
+(class) Reversed Select Substring ('Sean Zitzer' instr('Sean Zitzer', ' ') +1 || ',' || substr ('Sean Zitzer', 1, instr ('Sean Zitzer', ' '));
+
+3 Homework Exercises
+We will download and install the database the text book uses, TSQLV4. We will do this on the machine
+that you installed SQL Server and SSMS on. You will be using this for the homework.

@@ -1,0 +1,37 @@
+.echo on
+.headers on
+
+-- Name: TQSL-lab03.sql
+
+-- Author: Derek Cobb
+
+--Date: July 15, 2019
+
+-- 1. What is the order number and the date of each order sold by each employee?
+select E.employeeid, E.firstname, E.lastname, O.orderid, O.orderdate, O.employeeid from employees AS E JOIN orders O On E.employeeid = O.employeeid limit 10;
+
+
+-- 2. List each territory by region.
+Select T.territorydescription, R.regiondescription from territories AS T join region R on R.regionid = T.regionid order by R.regiondescription;
+
+-- 3. What is the supplier name for each product alphabetically by supplier?
+(I worked on this one before working with class, variables are different)
+select E.productname, W.companyname from products AS E left join suppliers W on E.supplierID = W.supplierID order by W.companyname;
+
+-- 4. For every order on May 5, 1998, how many of each item was ordered, and what was the price of the
+item?
+select o.orderid, o.orderdate, p.productname, od.unitprice, od.quantity from orders o join order_details od on o.orderid = od.orderid join products p on od.productid = p.productid where orderdate like "1998-05-05" order by o.orderdate;
+
+-- 5. For every order on May 5, 1998, how many of each item was ordered giving the name of the item, and
+what was the price of the item?
+select o.orderid, o.orderdate, p.productname, od.unitprice, od.quantity from orders o join order_details od on o.orderid = od.orderid join products p on od.productid = p.productid where orderdate like "1998-05-05" order by o.orderdate;
+
+-- 6. For every order in May, 1998, what was the customer's name and the shipper's name?
+select o.orderdate, c.companyname, s.companyname from orders o join customers c on o.customerid = c.customerid join shippers s on o.shipperid = s.shipperid where o.orderdate like "1998-05%";
+
+-- 7. What is the customer's name and the employee's name for every order shipped to France?
+Select o.orderid, o.shipcountry, o.customerid, o.employeeid, c.companyname, e.firstname || " " || e.lastname as employeename from orders o join customers c on o.customerid = c.customerid join employees e on o.employeeid = e.employeeid where o.shipcountry like "France";
+
+-- 8. List the products by name that were shipped to Germany.
+
+Select p.productid, p.productname, od.productid, od.orderid, o.shipcountry, o.orderid from products as p join order_details od on p.productid = od.productid join orders o on od.orderid = o.orderid where o.shipcountry like "Germany";

@@ -1,0 +1,28 @@
+.echo on
+.headers on
+
+##Name: SQL Exercise 02
+##Author: Derek Cobb
+##Date: July 8, 2019
+
+--1. Mail Labels
+select contacttitle || " " || contactname || "
+" || companyname || "
+" || address || "
+" || city || " " || region || " " || postalcode || " " || country || "
+
+
+" from customers;
+
+--2. Telephone Book
+select substr(contactname,instr(contactname, " "), instr(contactname, " ") + 1)
+|| ", " || substr(contactname, 1, instr(contactname, " ")-1) || " " ||
+companyname || " " || phone from customers;
+
+--3. Shipping Lag
+select orderid AS Order_Number, orderdate AS Order_Date, shippeddate AS Shipped_Date, julianday(shippeddate) - julianday(orderdate) AS Lag_Time from orders;
+
+--4. Your Age
+select julianday('NOW') - julianday('1989-09-06');
+
+10918.1907228357 day old
